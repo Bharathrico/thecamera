@@ -1,23 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef,useEffect, useRef, useImperativeHandle } from "react";
 import p5 from "p5";
 import { useImageStore } from "../store/useImageStore";
 import html2canvas from "html2canvas";
 
-export default function ImageCapture() {
+const ImageCapture = forwardRef((props,ref)=> {
   const containerRef = useRef(null);
   const p5Ref = useRef(null);
   const setFrame = useImageStore((s) => s.setFrame);
   const setCaptured = useImageStore((s) => s.setCaptured);
 
   const handleCapture = async () => {
+    console.log("Image capturing")
       if (containerRef.current) {
         const canvas = await html2canvas(containerRef.current, { scale: 1 });
         const image = canvas.toDataURL("image/png");
-        console.log(image)
+        
         setCaptured();
-        setFrame(image);                // save to Zustand
+        setFrame(image);   
+        console.log(image)             // save to Zustand
     };
+
   }
+   useImperativeHandle(ref, () => ({
+    runFunction: handleCapture,
+  }));
+
 
   useEffect(() => {
     const sketch = (s) => {
@@ -36,18 +43,6 @@ export default function ImageCapture() {
         s.loadPixels()
       };
 
-      // Capture function
-      s.captureFrame = () => {
-        console.log("Finally")
-        const snapshot = s.get();      // p5.Image
-        console.log(snapshot)
-        setFrame(snapshot);                // save to Zustand
-
-        setTimeout(() => {
-            setCaptured();
-        }, "200");
-        
-      };
     };
 
     p5Ref.current = new p5(sketch, containerRef.current);
@@ -56,11 +51,10 @@ export default function ImageCapture() {
   }, []);
 
   return (
-    <div>
+    <div style={{position:"absolute",left:"110vw"}}>
       <div ref={containerRef}></div>
-      <button onClick={() => handleCapture()}>
-        Capture Frame
-      </button>
     </div>
   );
-}
+})
+
+export default ImageCapture;
