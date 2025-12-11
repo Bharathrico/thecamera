@@ -33,7 +33,6 @@ function CameraModel({ webcamCanvas }) {
   useEffect(() => {
     if (texture) {
       const mesh = scene.getObjectByName("viewfinder"); // put your mesh name here
-      console.log(mesh);
       if (mesh) mesh.material.map = texture;
     }
   }, [texture]);

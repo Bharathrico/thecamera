@@ -56,7 +56,7 @@ const P5Brightness = () => {
         }
 
         brightnessValue = total / count; // final brightness 0–255
-        brightnessValue = s.int(s.map(brightnessValue,0,150,1,5))
+        brightnessValue = s.int(s.map(brightnessValue,0,180,1,5))
         setBrightness(brightnessValue)
 
 

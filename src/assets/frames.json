@@ -1,0 +1,16 @@
+[
+  {
+    "id": 0,
+    "src":"images/plasticframe.png",
+    "name": "Classic Wooden Frame",
+    "style": "wood",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 1,
+    "src":"images/orangeframe.png",
+    "name": "Minimal Black Frame",
+    "style": "minimal",
+    "aspectRatio": "16:9"
+  }
+]
