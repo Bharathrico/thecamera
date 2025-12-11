@@ -95,8 +95,6 @@ const ImageDevelop = () => {
           s.image(imageFrame, 0, 0, s.width, s.height);
         }
         // erase overlay where the brightest pixel is
-        if(roomBrightness>4)
-        {
         if (brightest.brightness != 0) {
           overlay.push();
           overlay.erase();
@@ -116,7 +114,6 @@ const ImageDevelop = () => {
           s.stroke(255);
           s.strokeWeight(1);
           s.circle(brightest.x, brightest.y, 20);
-        }
         }
 
         // draw overlay on top
