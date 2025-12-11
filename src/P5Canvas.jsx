@@ -1,26 +1,119 @@
 import React, { useEffect, useRef } from "react";
 import p5 from "p5";
+import { useAppStore } from "./store/useMainStore";
 
 const P5Canvas = () => {
   const containerRef = useRef(null);
   let p5Instance = null;
+  let brightnessValue = 0;
 
-  let video;
+  const setBrightness = useAppStore((state) => state.setBrightness);
 
   useEffect(() => {
     const sketch = (s) => {
+      let capture;
+      let overlay;
+      let brightnessCapture;
       s.setup = () => {
-        s.createCanvas(640, 480);
+        s.createCanvas(100, 100);
+        s.pixelDensity(1);
 
-        video = s.createCapture(s.VIDEO);
-        video.size(640,480)
-        video.hide()
+        // Webcam
+        capture = s.createCapture(s.VIDEO);
+        capture.size(100, 100);
+        capture.hide();
 
+        brightnessCapture = s.createCapture(s.VIDEO);
+        brightnessCapture.size(100, 100);
+        brightnessCapture.hide();
+
+        // White overlay
+        overlay = s.createGraphics(s.width, s.height);
+        overlay.background(255);
       };
 
       s.draw = () => {
-        s.image(video, 0,0)
-        
+        s.background(0);
+        // s.push();
+        // s.translate(s.width, 0);
+        // s.scale(-1, 1);
+        // draw webcam underneath
+        // s.image(capture, 0, 0, s.width, s.height);
+        s.image(brightnessCapture, 0, 0, 100, 100);
+        // s.pop()
+        // s.loadPixels();
+
+        //brightnesscapture
+
+        s.loadPixels();
+        let total = 0;
+        let count = 0;
+
+        // scan every x pixels to improve performance
+        let step = 4;
+
+        for (let y = 0; y < s.height; y += step) {
+          for (let x = 0; x < s.width; x += step) {
+            let i = (y * s.width + x) * 4;
+
+            let r = s.pixels[i];
+            let g = s.pixels[i + 1];
+            let b = s.pixels[i + 2];
+
+            // standard luminance formula
+            let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+            total += lum;
+            count++;
+          }
+        }
+
+        brightnessValue = total / count; // final brightness 0–255
+        brightnessValue = s.int(s.map(brightnessValue,0,150,1,5))
+        setBrightness(brightnessValue)
+
+
+        s.fill(255);
+        s.textSize(20);
+        s.text("Brightness: " + brightnessValue.toFixed(1), 10, s.height - 20);
+
+        // let brightest = { x: 0, y: 0, brightness: 0 };
+        // let step = 5;
+
+        // for (let y = 0; y < s.height; y += step) {
+        //   for (let x = 0; x < s.width; x += step) {
+        //     let i = (y * s.width + x) * 4;
+        //     let r = s.pixels[i];
+        //     let g = s.pixels[i + 1];
+        //     let b = s.pixels[i + 2];
+        //     let bright = r + g + b;
+        //     if (bright > 700) {
+        //       brightest = { x, y, brightness: bright };
+        //     }
+        //   }
+        // }
+
+        // erase overlay where the brightest pixel is
+
+        // if(brightest.brightness!=0)
+        // {
+        //     overlay.push();
+        //     overlay.erase();               // enables erase mode
+        //     overlay.noStroke();
+
+        //     // feather softness
+        //     overlay.drawingContext.shadowBlur = 40;
+        //     overlay.drawingContext.shadowColor = "rgba(0,0,0,1)";
+
+        //     // the shape being erased (soft edge)
+        //     overlay.ellipse(brightest.x, brightest.y, 120, 120);
+
+        //     overlay.noErase();
+        //     overlay.pop();
+        // }
+
+        // draw overlay on top
+        // s.image(overlay, 0, 0);
       };
     };
 
@@ -28,9 +121,7 @@ const P5Canvas = () => {
       p5Instance = new p5(sketch, containerRef.current);
     }
 
-    return () => {
-      p5Instance?.remove(); // Clean up on unmount
-    };
+    return () => p5Instance?.remove();
   }, []);
 
   return <div ref={containerRef}></div>;
