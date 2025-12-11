@@ -47,7 +47,7 @@ function CameraModel({ webcamCanvas }) {
 
 // }
 
-export default function ThreeComponent() {
+export default function ThreeComponent({ onDone }) {
   const { scene } = useGLTF("models/Trigger.glb");
    const captureRef = useRef();
 
@@ -55,6 +55,7 @@ export default function ThreeComponent() {
 
   const captureImage = () => {
     captureRef.current?.runFunction();
+    onDone()
   };
 
   return (
