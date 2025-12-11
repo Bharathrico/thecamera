@@ -40,14 +40,7 @@ function CameraModel({ webcamCanvas }) {
   return (<primitive object={scene} />);
 }
 
-// function Trigger()
-// {
-//    const { scene } = useGLTF("models/Trigger.glb");
-//    return (<primitive object={scene}/>);
-
-// }
-
-export default function ThreeComponent({ onDone }) {
+const ThreeComponent = ({ onDone }) => {
   const { scene } = useGLTF("models/Trigger.glb");
    const captureRef = useRef();
 
@@ -81,3 +74,5 @@ export default function ThreeComponent({ onDone }) {
     </>
   );
 }
+
+export default ThreeComponent;
