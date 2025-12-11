@@ -3,6 +3,7 @@ import P5Brightness from "./P5/P5Brightness";
 import ImageDevelop from "./P5/ImageDevelop";
 import { useAppStore } from "./store/useMainStore";
 import ImageCapture from './P5/ImageCapture'
+import ThreeComponent from "./threed/threecomponent";
 import './App.css'
 
 
@@ -13,10 +14,12 @@ function App() {
 
   return (
     <div className={`photoroom ${brightnessClass()}`}>
-      //new to this
+      {/* //new to this
       <h1>The Camera</h1>
       <ImageCapture/>
-      <ImageDevelop/>
+      <ImageDevelop/> */}
+    <ThreeComponent/>
+
       <P5Brightness />
     </div>
   );
