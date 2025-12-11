@@ -88,8 +88,8 @@ const ImageDevelop = () => {
           overlay.erase();
           overlay.noStroke();
 
-          overlay.drawingContext.shadowBlur = 40;
-          overlay.drawingContext.shadowColor = "rgba(0, 0, 0, 10)";
+          overlay.drawingContext.shadowBlur = 130;
+          overlay.drawingContext.shadowColor = "rgba(0, 0, 0, 100)";
 
           // decide what color to paint based on webcam pixel
           let col = s.color(0); // soft RGB reveal
