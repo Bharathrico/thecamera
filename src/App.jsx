@@ -2,7 +2,7 @@ import React from "react";
 import P5Brightness from "./P5/P5Brightness";
 import ImageDevelop from "./P5/ImageDevelop";
 import { useAppStore } from "./store/useMainStore";
-import ThreeComponent from "./threed/threecomponent";
+import ThreeComponent from "./threed/ThreeComponent";
 import { useState } from "react";
 import './App.css'
 
