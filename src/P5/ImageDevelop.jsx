@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import p5 from "p5";
 import "./ImageDev.css";
 import html2canvas from "html2canvas";
@@ -26,6 +27,18 @@ const ImageDevelop = () => {
     }
   };
   useEffect(() => {
+
+    gsap.fromTo(imageDivRef.current, {
+      opacity: 0,
+      x: 80
+    },{
+        opacity: 1,
+      x: 0,
+      duration: 0.7,
+      delay:0.5,
+      ease: "power3.out",
+    });
+
     if (imageCaptured) {
       console.log("in");
       // const imgURL = await URL.createObjectURL(frame);
@@ -81,7 +94,6 @@ const ImageDevelop = () => {
         }
         if (imageCaptured) {
           s.image(imageFrame, 0, 0, s.width, s.height);
-          console.log("loaded mamae");
         }
         // erase overlay where the brightest pixel is
 
