@@ -1,0 +1,30 @@
+.imageFrame
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: aliceblue;
+    width: auto;
+    height: auto;
+    position: relative;
+    
+}
+
+.captureImage
+{
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    overflow: hidden;
+    opacity: 50%;
+    z-index: 1;
+}
+
+.filmLayer
+{
+    width: 800px;
+    height: 600px;
+    overflow: hidden;
+    z-index: 1;
+}

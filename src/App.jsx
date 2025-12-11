@@ -1,17 +1,22 @@
 import React from "react";
-import P5Canvas from "./P5Canvas";
+import P5Brightness from "./P5/P5Brightness";
+import ImageDevelop from "./P5/ImageDevelop";
 import { useAppStore } from "./store/useMainStore";
+import ImageCapture from './P5/ImageCapture'
 import './App.css'
 
 
 function App() {
   const brightness = useAppStore((state) => state.roomBrightness);
+  const imageCaptured = useAppStore((state=>state.imageCaptured))
   let brightnessClass = () => "level"+brightness
 
   return (
     <div className={`photoroom ${brightnessClass()}`}>
-      <h1>React + p5 (JS)</h1>
-      <P5Canvas />
+      <h1>The Camera</h1>
+      <ImageCapture/>
+      <ImageDevelop/>
+      <P5Brightness />
     </div>
   );
 }
