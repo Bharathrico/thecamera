@@ -3,12 +3,14 @@ import p5 from "p5";
 import "./ImageDev.css";
 import html2canvas from "html2canvas";
 import { useImageStore } from "../store/useImageStore";
+import { useAppStore } from "../store/useMainStore";
 
 const ImageDevelop = () => {
   const imageDivRef = useRef(null);
   const containerRef = useRef(null);
   const frame = useImageStore((s) => s.frame);
   const imageCaptured = useImageStore((s) => s.imageCaptured);
+  const roomBrightness = useAppStore((state) => state.roomBrightness);
   let p5Instance = null;
 
   const handleExport = async () => {
@@ -23,9 +25,9 @@ const ImageDevelop = () => {
       link.click();
     }
   };
-  useEffect( () => {
+  useEffect(() => {
     if (imageCaptured) {
-      console.log("in")
+      console.log("in");
       // const imgURL = await URL.createObjectURL(frame);
       console.log(frame);
     }
@@ -43,7 +45,7 @@ const ImageDevelop = () => {
         capture.hide();
         if (imageCaptured) {
           imageFrame = await s.loadImage(frame);
-          console.log("hi")
+          console.log("hi");
         }
         // White overlay
         overlay = s.createGraphics(s.width, s.height);
@@ -71,15 +73,15 @@ const ImageDevelop = () => {
             let g = s.pixels[i + 1];
             let b = s.pixels[i + 2];
             let lum = 0.299 * r + 0.587 * g + 0.114 * b;
-            lum = s.int(s.map(lum, 0, 255, 1, 10));
-            if (lum > 9) {
+            lum = s.int(s.map(lum, 0, 255, 0, 255));
+            if (lum >=250 ) {
               brightest = { x, y, brightness: lum };
             }
           }
         }
         if (imageCaptured) {
           s.image(imageFrame, 0, 0, s.width, s.height);
-          console.log("loaded mamae")
+          console.log("loaded mamae");
         }
         // erase overlay where the brightest pixel is
 
@@ -98,10 +100,34 @@ const ImageDevelop = () => {
           overlay.ellipse(brightest.x, brightest.y, 250, 250);
           overlay.noErase();
           overlay.pop();
+          s.fill(s.color(255, 150, 0));
+          s.stroke(255);
+          s.strokeWeight(2);
+          s.circle(brightest.x, brightest.y, 30);
         }
 
         // draw overlay on top
         s.image(overlay, 0, 0);
+      };
+
+      s.findPixel = () => {
+        s.loadPixels();
+        let step = 5;
+        for (let y = 0; y < s.height; y += step) {
+          for (let x = 0; x < s.width; x += step) {
+            let i = (y * s.width + x) * 4;
+            let r = s.pixels[i];
+            let g = s.pixels[i + 1];
+            let b = s.pixels[i + 2];
+            let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+            lum = s.int(s.map(lum, 0, 255, 1, 20));
+            if (lum == 20) {
+              return [x,y];
+            } else {
+              return null;
+            }
+          }
+        }
       };
     };
 

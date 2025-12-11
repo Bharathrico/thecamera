@@ -13,6 +13,7 @@ function App() {
 
   return (
     <div className={`photoroom ${brightnessClass()}`}>
+      //new to this
       <h1>The Camera</h1>
       <ImageCapture/>
       <ImageDevelop/>
