@@ -5,6 +5,7 @@ import { useAppStore } from "./store/useMainStore";
 import ThreeComponent from "./threed/ThreeComponent";
 import { useState } from "react";
 import "./App.css";
+import Intermediate from "./Components/Intermediate";
 
 function App() {
   const brightness = useAppStore((state) => state.roomBrightness);
@@ -13,11 +14,11 @@ function App() {
 
   const [step, setStep] = useState("first");
 
-  const goToSecond = () => setStep("second");
+  const goToSection = (step) => setStep(step);
 
   return (
     <div className={`photoroom ${brightnessClass()}`}>
-      <div style={{ paddingTop: "40px", display:"flex", alignItems:"center", justifyContent:"center", gap:"10px"}}>
+      <div style={{position:"absolute", top:"10px", display:"flex", alignItems:"center", justifyContent:"center", gap:"10px"}}>
         <img
           style={{ height: "30px" }}
           src={brightness > 3 ? "images/Sun.png" : "images/Moon.png"}
@@ -33,8 +34,9 @@ function App() {
       
       <ImageDevelop/> */}
 
-      {step === "first" && <ThreeComponent onDone={goToSecond} />}
-      {step === "second" && <ImageDevelop />}
+      {step === "first" && <ThreeComponent onDone={goToSection} />}
+      {step === "second" && <Intermediate onDone={goToSection} />}
+      {step === "third" && <ImageDevelop />}
 
       <P5Brightness />
     </div>

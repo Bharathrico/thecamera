@@ -1,16 +1,142 @@
 [
   {
     "id": 0,
-    "src":"images/plasticframe.png",
+    "src": "images/plasticframe.png",
     "name": "Classic Wooden Frame",
     "style": "wood",
     "aspectRatio": "4:3"
   },
   {
     "id": 1,
-    "src":"images/orangeframe.png",
+    "src": "images/orangeframe.png",
     "name": "Minimal Black Frame",
     "style": "minimal",
-    "aspectRatio": "16:9"
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 2,
+    "src": "images/whiteframe.png",
+    "name": "Matte White Frame",
+    "style": "minimal",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 3,
+    "src": "images/goldframe.png",
+    "name": "Vintage Gold Frame",
+    "style": "ornate",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 4,
+    "src": "images/silverframe.png",
+    "name": "Thin Silver Frame",
+    "style": "metal",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 5,
+    "src": "images/blackthick.png",
+    "name": "Gallery Black Frame",
+    "style": "gallery",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 6,
+    "src": "images/wooddark.png",
+    "name": "Dark Walnut Frame",
+    "style": "wood",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 7,
+    "src": "images/woodlight.png",
+    "name": "Light Oak Frame",
+    "style": "wood",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 8,
+    "src": "images/polaroid.png",
+    "name": "Polaroid Frame",
+    "style": "polaroid",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 9,
+    "src": "images/canvas.png",
+    "name": "Canvas Wrap Frame",
+    "style": "canvas",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 10,
+    "src": "images/acrylic.png",
+    "name": "Floating Acrylic Frame",
+    "style": "acrylic",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 11,
+    "src": "images/shadowbox.png",
+    "name": "Shadow Box Frame",
+    "style": "shadowbox",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 12,
+    "src": "images/rounded.png",
+    "name": "Rounded Soft Frame",
+    "style": "soft",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 13,
+    "src": "images/rustic.png",
+    "name": "Rustic Barnwood Frame",
+    "style": "rustic",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 14,
+    "src": "images/metalgrey.png",
+    "name": "Industrial Metal Frame",
+    "style": "metal",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 15,
+    "src": "images/bamboo.png",
+    "name": "Bamboo Eco Frame",
+    "style": "eco",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 16,
+    "src": "images/deco.png",
+    "name": "Art Deco Frame",
+    "style": "deco",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 17,
+    "src": "images/poster.png",
+    "name": "Poster Slim Frame",
+    "style": "poster",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 18,
+    "src": "images/cream.png",
+    "name": "Cream Matte Frame",
+    "style": "matte",
+    "aspectRatio": "4:3"
+  },
+  {
+    "id": 19,
+    "src": "images/rose.png",
+    "name": "Rose Gold Frame",
+    "style": "metal",
+    "aspectRatio": "4:3"
   }
 ]

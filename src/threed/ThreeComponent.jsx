@@ -77,7 +77,7 @@ const ThreeComponent = ({ onDone }) => {
       x: -50,
       duration: 0.5,
       ease: "power2.in",
-      onComplete: onDone, // Unmount after animation
+      onComplete: onDone("second"), // Unmount after animation
     });
   };
 
