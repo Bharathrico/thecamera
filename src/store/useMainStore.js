@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import photoframes from '../assets/frames.json'
+//Random frame based on JSON data
 const framekeys = Math.floor(Math.random()*20);
 
 export const useAppStore = create(
