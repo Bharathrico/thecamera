@@ -195,7 +195,7 @@ const ImageDevelop = () => {
         <img
           // id={currentFrame}
           className="frameElement"
-          src={photoFrames[Math.floor(Math.random()*20)].src}
+          src={photoFrames[currentFrame].src}
           alt=""
         />
         <div className="filmLayer" ref={containerRef}></div>

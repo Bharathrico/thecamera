@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import photoframes from '../assets/frames.json'
-const framekeys = photoframes.map(item=>item.id);
+const framekeys = Math.floor(Math.random()*20);
 
 export const useAppStore = create(
 
     (set) => ({
       // ---------- STATE ----------
       roomBrightness: 5,
-      currentId:framekeys[0],
+      currentId:framekeys,
 
       // ---------- ACTIONS ----------
       setBrightness: (roomBrightness) => {
