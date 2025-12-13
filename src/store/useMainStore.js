@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import photoframes from '../assets/frames.json'
 const framekeys = photoframes.map(item=>item.id);
-console.log(framekeys)
 
 export const useAppStore = create(
 

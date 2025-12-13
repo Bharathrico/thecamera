@@ -10,16 +10,14 @@ export default function P5Viewfinder({ onCanvasReady }) {
       let cam;
 
       p.setup = () => {
-        const c = p.createCanvas(800, 600);
+        const c = p.createCanvas(128, 96);
         cam = p.createCapture(p.VIDEO);
-        cam.size(800, 600);
+        cam.size(128, 96);
         cam.hide();
 
         // expose canvas to parent
         if (onCanvasReady)
         {
-         console.log("mid")
-         console.log(c.elt)
          onCanvasReady(c.elt);}
       };
 
@@ -27,7 +25,7 @@ export default function P5Viewfinder({ onCanvasReady }) {
         
         p.translate(p.width, p.height);
         p.scale(-1, -1);
-        p.image(cam, 0, 0, 800, 600);
+        p.image(cam, 0, 0, 128, 96);
       };
     };
 

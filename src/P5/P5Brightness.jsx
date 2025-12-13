@@ -14,11 +14,11 @@ const P5Brightness = () => {
       let overlay;
       let brightnessCapture;
       s.setup = () => {
-        s.createCanvas(100, 100);
+        s.createCanvas(128, 96);
         s.pixelDensity(1);
 
         brightnessCapture = s.createCapture(s.VIDEO);
-        brightnessCapture.size(100, 100);
+        brightnessCapture.size(128, 96);
         brightnessCapture.hide();
 
         // White overlay
@@ -28,7 +28,7 @@ const P5Brightness = () => {
 
       s.draw = () => {
         s.background(0);
-        s.image(brightnessCapture, 0, 0, 100, 100);
+        s.image(brightnessCapture, 0, 0, 128, 96);
 
         //brightnesscapture
 

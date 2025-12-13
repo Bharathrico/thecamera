@@ -10,14 +10,12 @@ const ImageCapture = forwardRef((props,ref)=> {
   const setCaptured = useImageStore((s) => s.setCaptured);
 
   const handleCapture = async () => {
-    console.log("Image capturing")
       if (containerRef.current) {
         const canvas = await html2canvas(containerRef.current, { scale: 1 });
         const image = canvas.toDataURL("image/png");
         
         setCaptured();
-        setFrame(image);   
-        console.log(image)             // save to Zustand
+        setFrame(image);
     };
 
   }

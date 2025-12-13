@@ -1,19 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import p5 from "p5";
 import "./ImageDev.css";
 import html2canvas from "html2canvas";
 import { useImageStore } from "../store/useImageStore";
 import { useAppStore } from "../store/useMainStore";
-import photoFrames from "../assets/frames.json"
+import photoFrames from "../assets/frames.json";
 
 const ImageDevelop = () => {
   const imageDivRef = useRef(null);
   const containerRef = useRef(null);
+  const layoutRef = useRef(null);
   const frame = useImageStore((s) => s.frame);
   const imageCaptured = useImageStore((s) => s.imageCaptured);
-  const currentFrame = useAppStore((s)=>s.currentId)
+  const currentFrame = useAppStore((s) => s.currentId);
   const roomBrightness = useAppStore((state) => state.roomBrightness);
+  const filmExpose = useImageStore((s) => s.filmExpose);
+  const setExpose = useImageStore((s) => s.setExpose);
   let p5Instance = null;
 
   const handleExport = async () => {
@@ -28,21 +32,60 @@ const ImageDevelop = () => {
       link.click();
     }
   };
+
+  useGSAP(
+    (context, contextSafe) => {
+      // overall div animation
+
+      gsap.fromTo(
+        layoutRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 0.3,
+          delay: 0.2,
+          ease: "power3.out",
+        }
+      );
+
+      gsap.fromTo(
+        imageDivRef.current,
+        {
+          opacity: 0,
+          x: 80,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.3,
+          delay: 0.2,
+          ease: "power3.out",
+        }
+      );
+
+      gsap.fromTo(
+        containerRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 0.2,
+          delay: 0.2,
+          ease: "power3.out",
+        }
+      );
+
+      return () => {};
+    },
+    { scope: layoutRef }
+  );
+
   useEffect(() => {
-
-    gsap.fromTo(imageDivRef.current, {
-      opacity: 0,
-      x: 80
-    },{
-        opacity: 1,
-      x: 0,
-      duration: 0.7,
-      delay:0.5,
-      ease: "power3.out",
-    });
-
     // if (imageCaptured) {
-      // const imgURL = await URL.createObjectURL(frame);
+    // const imgURL = await URL.createObjectURL(frame);
     // }
     const sketch = (s) => {
       let overlay;
@@ -86,7 +129,10 @@ const ImageDevelop = () => {
             let b = s.pixels[i + 2];
             let lum = 0.299 * r + 0.587 * g + 0.114 * b;
             lum = s.int(s.map(lum, 0, 255, 0, 255));
-            if (lum >=250 ) {
+            if (lum == 255) {
+              setExpose();
+            }
+            if (lum >= 250) {
               brightest = { x, y, brightness: lum };
             }
           }
@@ -95,6 +141,8 @@ const ImageDevelop = () => {
           s.image(imageFrame, 0, 0, s.width, s.height);
         }
         // erase overlay where the brightest pixel is
+        // this block will have a pixel checker, that will check the current pixel in overlay,
+        // if it does not have opacity, paints burn in that place!
         if (brightest.brightness != 0) {
           overlay.push();
           overlay.erase();
@@ -119,7 +167,6 @@ const ImageDevelop = () => {
         // draw overlay on top
         s.image(overlay, 0, 0);
       };
-
     };
 
     if (containerRef.current) {
@@ -130,16 +177,33 @@ const ImageDevelop = () => {
   }, [frame, imageCaptured]);
 
   return (
-    <div className="frameholder">
     <div
-      onClick={() => handleExport()}
-      ref={imageDivRef}
-      className="imageFrame"
+      ref={layoutRef}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: "0",
+      }}
     >
-      <img id={currentFrame} className="frameElement" src={photoFrames[currentFrame].src} alt="" />
-      <div className="filmLayer" ref={containerRef}></div>
-    </div>
-    {/* <div className="framebuttons"><button>previous</button><button>next</button></div> */}
+      <div
+        onClick={() => handleExport()}
+        ref={imageDivRef}
+        className="imageFrame"
+      >
+        <img
+          id={currentFrame}
+          className="frameElement"
+          src={photoFrames[currentFrame].src}
+          alt=""
+        />
+        <div className="filmLayer" ref={containerRef}></div>
+      </div>
+      {filmExpose
+        ? "Click on the frame to download developed image"
+        : "Expose light to reveal image"}
+      {/* <div className="framebuttons"><button>previous</button><button>next</button></div> */}
     </div>
   );
 };

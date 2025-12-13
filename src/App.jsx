@@ -21,9 +21,9 @@ function App() {
       <div style={{position:"absolute", top:"10px", display:"flex", alignItems:"center", justifyContent:"center", gap:"10px"}}>
         <img
           style={{ height: "30px" }}
-          src={brightness > 3 ? "images/Sun.png" : "images/Moon.png"}
+          src={brightness > 2 ? "images/Sun.png" : "images/Moon.png"}
         />
-        {brightness > 3 ? (
+        {brightness > 2 ? (
           <p style={{ color: "#000" }}>Room is Bright</p>
         ) : (
           <p>Room is dark</p>

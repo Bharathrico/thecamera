@@ -4,7 +4,6 @@ import { useGLTF } from "@react-three/drei";
 
 const Model = () => {
   const gltf = useGLTF("/models/Camera.glb"); // path to your GLTF file
-  console.log(gltf)
 
   return (
     <primitive object={gltf.scene} scale={1} position={[0, 0, 0]} />
